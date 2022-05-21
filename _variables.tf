@@ -448,3 +448,8 @@ variable "aws_auth_accounts" {
   type        = list(any)
   default     = []
 }
+
+variable "profile" {
+  description = "Enter name of profile"
+  default     = ""
+}

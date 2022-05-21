@@ -517,3 +517,8 @@ variable "eks_managed_node_group_id" {
   type        = string
   default     = null
 }
+
+variable "profile" {
+  description = "Enter name of profile"
+  default     = ""
+}
