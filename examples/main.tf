@@ -2,6 +2,7 @@ module "eks" {
   source = "git::https://github.com/tonygyerr/terraform-aws-eks.git"
 
   profile                         = var.profile
+  region                          = var.aws_region
   cluster_name                    = local.name
   cluster_version                 = local.cluster_version
   cluster_endpoint_private_access = true
