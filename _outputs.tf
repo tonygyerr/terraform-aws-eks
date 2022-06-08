@@ -140,18 +140,18 @@ output "cloudwatch_log_group_arn" {
 #   value       = [for group in module.self_managed_node_group : group.autoscaling_group_name]
 # }
 
-################################################################################
+###############################################################################
 # Additional
-################################################################################
+###############################################################################
 
-# output "aws_auth_configmap_yaml" {
-#   description = "[DEPRECATED - use `var.manage_aws_auth_configmap`] Formatted yaml output for base aws-auth configmap containing roles used in cluster node groups/fargate profiles"
-#   value = templatefile("${path.module}/templates/aws_auth_cm.tpl",
-#     {
-#       eks_managed_role_arns                   = [for group in module.eks_managed_node_group : group.iam_role_arn]
-#       # self_managed_role_arns                  = [for group in module.self_managed_node_group : group.iam_role_arn if group.platform != "windows"]
-#       # win32_self_managed_role_arns            = [for group in module.self_managed_node_group : group.iam_role_arn if group.platform == "windows"]
-#       # fargate_profile_pod_execution_role_arns = [for group in module.fargate_profile : group.fargate_profile_pod_execution_role_arn]
-#     }
-#   )
-# }
+output "aws_auth_configmap_yaml" {
+  description = "[DEPRECATED - use `var.manage_aws_auth_configmap`] Formatted yaml output for base aws-auth configmap containing roles used in cluster node groups/fargate profiles"
+  value = templatefile("${path.module}/templates/aws_auth_cm.tpl",
+    {
+      eks_managed_role_arns                   = [for group in aws_eks_cluster.this : group.role_arn]
+      # self_managed_role_arns                  = [for group in module.self_managed_node_group : group.iam_role_arn if group.platform != "windows"]
+      # win32_self_managed_role_arns            = [for group in module.self_managed_node_group : group.iam_role_arn if group.platform == "windows"]
+      # fargate_profile_pod_execution_role_arns = [for group in module.fargate_profile : group.fargate_profile_pod_execution_role_arn]
+    }
+  )
+}
